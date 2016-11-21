@@ -14,16 +14,20 @@ import java.io.FileOutputStream;
 public class CreateInventory extends Activity {
 
     @Override
+    // This function is called when the activity is stored
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_inventory);
     }
 
+    // This function is executed when the user attempts to create a new inventory
     public void createNewInventory(View view) {
+        // Get the inventory name that the user inputs
         Intent intent = new Intent(this, ExistInventory.class);
         EditText editText = (EditText) findViewById(R.id.new_inventory_text);
         String message = editText.getText().toString();
 
+        // Create the file for the new inventory
         String file_name = message + "_Inventory.txt";
 
         FileOutputStream fos;
@@ -35,6 +39,7 @@ public class CreateInventory extends Activity {
             e.printStackTrace();
         }
 
+        // Start the next activity
         startActivity(intent);
     }
 }
