@@ -20,8 +20,10 @@ import java.util.Iterator;
 
 import static android.R.id.message;
 
+// Class and Activity used to edit a specific ingredient in an inventory
 public class EditIngredient extends Activity {
 
+    // Variables used to edit the inventory
     String inventory_name = "";
     String ingredient_name = "";
     Double ingredient_quantity = 0.0;
@@ -34,9 +36,12 @@ public class EditIngredient extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_ingredient);
 
+        // Get the inventory name and ingredient name from the previous activity
         Intent intent = getIntent();
         final Bundle extras = intent.getExtras();
         inventory_name = extras.getString("Inventory Name");
+
+        // Set the textview for the inventory/grocery list name
         textView = (TextView) findViewById(R.id.inventory_name);
         textView.setTextSize(20);
         if (inventory_name.equals("Grocery List")) {
@@ -46,9 +51,11 @@ public class EditIngredient extends Activity {
             textView.setText("Inventory: " + inventory_name);
         }
 
+        // get the ingredient name and store it
         String[] splitting = extras.getString("Ingredient").split(" ");
         ingredient_name = splitting[0];
 
+        // Open the file storing the inventory or grocery list and get and store the ingredient quantity and unit
         FileInputStream fis;
         try {
             if (inventory_name.equals("Grocery List")) {
@@ -80,6 +87,7 @@ public class EditIngredient extends Activity {
             e.printStackTrace();
         };
 
+        // Set the textView for the ingredient attriubtes
         textView = (TextView) findViewById(R.id.ingredient_name);
         textView.setTextSize(18);
         textView.setText("NAME:" + ingredient_name);
@@ -92,9 +100,13 @@ public class EditIngredient extends Activity {
         textView.setHint("UNIT: " + ingredient_unit);
         textView.setTextSize(18);
 
+        // Button clicked when submitting changes to to an ingredient
         Button button = (Button)findViewById(R.id.submit_edit_ingredient);
+
+        // Do this when button is clicked
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                // Create an intent for the future activity and send the inventory name
                 Intent intent;
                 if (inventory_name.equals("Grocery List")) {
                     intent = new Intent(view.getContext(), GroceryList.class);
@@ -103,19 +115,20 @@ public class EditIngredient extends Activity {
                 }
                 intent.putExtra(MainActivity.EXTRA_MESSAGE, inventory_name);
 
+                // Get user inputs from the EditTexts
                 EditText editText2 = (EditText) findViewById(R.id.ingredient_quantity) ;
                 String quantity = editText2.getText().toString();
 
                 EditText editText3 = (EditText) findViewById(R.id.ingredient_unit);
                 String unit = editText3.getText().toString();
 
-                //EditText editText3 = (EditText) findViewById(R.id.ingredient_unit) ;
-                //String unitMeasurement = editText3.getText().toString();
+                // Do this if the quantity has changed
                 if (quantity != "" && quantity != null) {
                     FileInputStream fis;
                     FileOutputStream fos;
                     ArrayList<String> inventory_files = new ArrayList<String>();
 
+                    // Get every ingredient except for the one to be editted and store in inventory_files
                     try {
                         fis = openFileInput("grocery_list.txt");
 
@@ -140,6 +153,8 @@ public class EditIngredient extends Activity {
                         e.printStackTrace();
                     };
 
+                    // Set the string to be added to inventory_file depending on if unit has been editted or not
+                    // and add to inventory_file
                     String temp2;
                     if (unit != null && unit != "") {
                         temp2 = ingredient_name + "|" + quantity + "|" + unit;
@@ -149,6 +164,7 @@ public class EditIngredient extends Activity {
                     }
                     inventory_files.add(temp2);
 
+                    // Clear the inventory and repopulate with the old ingredients including the editted ingredient
                     try {
                         if (inventory_name.equals("Grocery List")) {
                             fos = openFileOutput("grocery_list.txt", MODE_PRIVATE);
@@ -170,6 +186,7 @@ public class EditIngredient extends Activity {
                         e.printStackTrace();
                     }
                 }
+                // Start the next activity (ShowInventory or GroceryList)
                 startActivity(intent);
             }
         });
