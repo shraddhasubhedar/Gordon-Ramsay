@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:weightSum="1">
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:text="@string/create_inven"
+        android:layout_weight="0.26"
+        android:onClick="create_inventory">
+    </Button>
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:text="@string/existing_inven"
+        android:layout_weight="0.26"
+        android:onClick="exist_inventory"/>
+</LinearLayout>

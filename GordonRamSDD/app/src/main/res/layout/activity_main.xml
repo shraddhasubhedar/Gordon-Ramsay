@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/Layout01"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <Button
+        android:id="@+id/button_login"
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:text = "@string/login"
+        android:onClick="goToLogin"
+        android:layout_weight="0.13"
+        android:visibility="invisible" />
+    <Button
+        android:id="@+id/grocery_list"
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:text = "@string/grocery_list"
+        android:onClick = "goToGroceryList"
+        android:layout_weight="0.13" />
+    <Button
+        android:id="@+id/button_ingredients_list"
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:text = "@string/ingredients_list"
+        android:onClick = "goToInventory"
+        android:layout_weight="0.13" />
+    <Button
+        android:id="@+id/button_recipes"
+        android:layout_width="124dp"
+        android:layout_height="wrap_content"
+        android:text = "@string/recipes"
+        android:onClick = "goToRecipe"
+        android:layout_weight="0.13" />
+</LinearLayout>

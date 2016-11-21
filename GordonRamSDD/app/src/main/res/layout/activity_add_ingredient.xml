@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/activity_add_ingredient"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <EditText
+        android:id="@+id/new_ingredient_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint = "@string/ingredient_name"
+        android:textSize="30sp"
+        android:inputType="text"
+        android:layout_weight="0.13" />
+    <EditText
+        android:id="@+id/new_ingredient_quantity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint = "@string/quantity"
+        android:textSize="30sp"
+        android:inputType="numberDecimal"
+        android:layout_weight="0.13" />
+    <EditText
+        android:id="@+id/new_ingredient_unit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint = "@string/unit_measurement"
+        android:textSize="30sp"
+        android:inputType="text"
+        android:layout_weight="0.13" />
+    <Button
+        android:id="@+id/button_add_ingredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "@string/submit" />
+
+</LinearLayout>

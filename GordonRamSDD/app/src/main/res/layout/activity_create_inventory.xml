@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/Layout01"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <EditText
+        android:id="@+id/new_inventory_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint = "@string/create_inven"
+        android:textSize="30sp"
+        android:inputType="text"
+        android:layout_weight="0.13" />
+    <Button
+        android:id="@+id/button_new_inventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text = "@string/submit"
+        android:onClick = "createNewInventory"/>
+
+</LinearLayout>
