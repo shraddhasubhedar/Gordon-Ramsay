@@ -14,12 +14,13 @@ import java.util.List;
  * Created by segrea on 11/20/2016.
  */
 
+//Recipe class, it isn't overly essential. But it makes displaying our recipe a little cleaner, and is much easier and friendlier to code
 public class Recipe {
     String publisher, f2f_url, title, source_url, recipe_id, image_url, publisher_url;
-    double social_rank;
+    double social_rank; //easy member variables for all the information
     List<String> ingredients;
 
-    public Recipe(){
+    public Recipe(){ //default constructor
         publisher = "";
         f2f_url = "";
         title = "";
@@ -29,8 +30,8 @@ public class Recipe {
         publisher_url = "";
         social_rank = 0.0;
     }
-    public Recipe(String base){
-        String[] lines = base.split(System.getProperty("line.separator"));
+    public Recipe(String base){ //this is the one that will actually be used
+        String[] lines = base.split(System.getProperty("line.separator")); //it's a big String with information separated by lines
         title = lines[0];
         publisher = lines[1];
         recipe_id = lines[2];
@@ -39,10 +40,10 @@ public class Recipe {
         publisher_url = lines[5];
         f2f_url = lines[6];
         image_url = lines[7];
-        ingredients = new ArrayList<String>();
+        ingredients = new ArrayList<String>(); //make dummy ingredients list
     }
 
-
+    //it's the usual "String, with ingredients separated by \n" deal
     public void put_ingredients(String s){
         String lines[] = s.split(System.getProperty("line.separator"));
         for(int i = 0; i < lines.length; i++){
@@ -51,7 +52,7 @@ public class Recipe {
     }
 
 
-
+    //retrieve the ingredients in our favorite format
     public String getIngredients(){
         String z = "";
         for(int i = 0; i < ingredients.size(); i++){
@@ -60,11 +61,13 @@ public class Recipe {
         }
         return z;
     }
-
+    
+    //i was going to implement this here, then there was a conflict with some Activity stuff, so I put it back in the RecipeActivity instead
     public void decrementInventory(){
 
     }
 
+    //Get Functions
     public String getPublisher(){
         return publisher;
     }
