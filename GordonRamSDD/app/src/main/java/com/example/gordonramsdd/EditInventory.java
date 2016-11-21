@@ -24,19 +24,25 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+// Class and Activity used to edit the inventory (Edit Ingredient, Delete Ingredient)
 public class EditInventory extends Activity {
-
+    
+    // variables used to store ingredient and inventory values
     private String message;
     private String message2;
     private TextView textView;
 
     @Override
+    // Function that is called when the activity is started
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_inventory);
-
+        
+        // Get the values from the previous activity
         Intent intent = getIntent();
         final Bundle extras = intent.getExtras();
+        
+        // Set the inventory name/ grocery list name to the corresponding textView
         message = extras.getString("Inventory Name");
         textView = (TextView) findViewById(R.id.inventory_name);
         textView.setTextSize(20);
@@ -46,14 +52,18 @@ public class EditInventory extends Activity {
         else {
             textView.setText("Inventory: " + message);
         }
+        // Show the ingredient attributes in the corresponding textView
         message2 = extras.getString("Ingredient");
         textView = (TextView) findViewById(R.id.ingredient);
         textView.setTextSize(18);
         textView.setText(message2);
-
+        
+        // Button used to delete an ingredient
         Button button = (Button)findViewById(R.id.delete_ingredient);
+        
+        // Set click function for Grocery List
         if (message.equals("Grocery List")) {
-            Log.i("tag1", "GOT HERE");
+            // Set the intent for the GroceryList
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), GroceryList.class);
@@ -61,7 +71,8 @@ public class EditInventory extends Activity {
 
                     ArrayList<String> ingredient_file = new ArrayList<String>();
                     FileInputStream fis;
-
+                    
+                    // Store every ingredient except for the one being deleted in ingredient_file
                     try {
                         fis = openFileInput("grocery_list.txt");
 
@@ -91,7 +102,8 @@ public class EditInventory extends Activity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     };
-
+                    
+                    // Rewrite the Grocery List with every ingredient except for the deleted ingredient
                     FileOutputStream fos;
                     try {
                         fos = openFileOutput("grocery_list.txt", Context.MODE_PRIVATE);
@@ -111,6 +123,8 @@ public class EditInventory extends Activity {
             });
         }
         else {
+            // set click function for inventories, similar to that of Grocery List except for the file being used
+            // and the next activity to be displayed            
             button.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), ShowInventory.class);
@@ -168,8 +182,11 @@ public class EditInventory extends Activity {
                 }
             });
         }
-
+        
+        // Button used to edit an ingredient
         Button button_edit = (Button)findViewById(R.id.edit_ingredient);
+        
+        // When clicked, send inventory name and ingredient attributes to the EditIngredient Activity and start it        
         button_edit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), EditIngredient.class);
