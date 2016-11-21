@@ -24,25 +24,27 @@ import java.util.ArrayList;
 
 import static android.R.attr.button;
 
+// Activity and class that shows the ingredients in an inventory
 public class ShowInventory extends Activity {
 
+    // variables used for showing the ingredients
     String message = "";
     private TextView textView;
 
+    // Function that is called when the activity is started
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_inventory);
 
+        // Set the textView to show the inventory name
         Intent intent = getIntent();
         message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
         textView = (TextView) findViewById(R.id.inventory_name);
         textView.setTextSize(20);
         textView.setText("Inventory: " + message);
 
-        //ViewGroup layout = (ViewGroup) findViewById(R.id.activity_show_inventory);
-        //layout.addView(textView);
-
+        // Gets the ingredients in the inventory and store into inventory_files
         ArrayList<String> inventory_files = new ArrayList<String>();
 
         FileInputStream fis;
@@ -75,7 +77,7 @@ public class ShowInventory extends Activity {
             e.printStackTrace();
         };
 
-
+        // Set the ListView to show the ingredients stored in inventory_files
         String[] inventory_files_array = inventory_files.toArray(new String[inventory_files.size()]);
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_listview, inventory_files_array);
@@ -83,21 +85,27 @@ public class ShowInventory extends Activity {
         ListView listView = (ListView) findViewById(R.id.ingredient_list);
         listView.setAdapter(adapter);
 
+        // When an ingredient in the ListView is clicked
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Create a bundle and store the inventory name and ingredient attributes into it
                 Bundle extras = new Bundle();
                 String fname = String.valueOf(parent.getItemAtPosition(position));
                 extras.putString("Inventory Name",message);
                 extras.putString("Ingredient",fname);
+
+                // Start EditInventory
                 Intent intent = new Intent(view.getContext(), EditInventory.class);
                 intent.putExtras(extras);
                 startActivity(intent);
             }
         });
 
-
+        // Button used to add ingredients
         Button button = (Button)findViewById(R.id.add_ingredient);
+
+        // When the add ingredient button has been clicked, go to AddIngredient
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddIngredient.class);
@@ -106,7 +114,10 @@ public class ShowInventory extends Activity {
             }
         });
 
+        // Button used to delete the inventory
         Button button2 = (Button)findViewById(R.id.delete_inventory);
+
+        // When the delete inventory button is pressed, the file is found and deleted
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 File dir = getFilesDir();
@@ -116,11 +127,6 @@ public class ShowInventory extends Activity {
                 startActivity(intent);
             }
         });
-    }
-
-    protected void gotomain(View view) {
-        Intent intent = new Intent(view.getContext(), MainActivity.class);
-        startActivity(intent);
     }
 
 }
