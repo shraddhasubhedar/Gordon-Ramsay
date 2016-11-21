@@ -20,11 +20,17 @@ import java.io.OutputStreamWriter;
 public class AddIngredient extends Activity {
 
     @Override
+    // Function called when the activity is started
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ingredient);
 
+        // Boolean that is used to determine if the activity is using a grocery_list. If true,
+        // set grocery true, otherwise ...
         boolean grocery = false;
+
+        // Get the string that was sent from the previous activity (the Inventory name)
+        // and display in a TextView
 
         // Get the string that was sent from the previous activity (the Inventory name)
         // and display in a TextView
@@ -42,6 +48,7 @@ public class AddIngredient extends Activity {
             textView.setText("Inventory: " + message);
         }
 
+        // Add the textView to the current layout
         ViewGroup layout = (ViewGroup) findViewById(R.id.activity_add_ingredient);
         layout.addView(textView);
 
@@ -92,7 +99,7 @@ public class AddIngredient extends Activity {
                     e.printStackTrace();
                 }
 
-                // Start the next activity (ShowInventory)
+                // Start the next activity (ShowInventory or GroceryList)
                 startActivity(intent);
             }
         });
