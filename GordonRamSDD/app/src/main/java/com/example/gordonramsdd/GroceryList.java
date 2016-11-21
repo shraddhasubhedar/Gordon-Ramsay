@@ -30,6 +30,7 @@ import java.util.ArrayList;
 
 import static com.example.gordonramsdd.R.layout.activity_grocery_list;
 
+// Class and Activity used specifically for the Grocery List
 public class GroceryList extends Activity {
 
     @Override
@@ -37,6 +38,7 @@ public class GroceryList extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(activity_grocery_list);
 
+        // Create the file if the file does not exist
         FileOutputStream fos;
         FileInputStream fis;
 
@@ -58,6 +60,7 @@ public class GroceryList extends Activity {
             }
         }
 
+        // Display the ingredients within the grocery list
         ArrayList<String> inventory_files = new ArrayList<>();
 
         try {
@@ -87,7 +90,7 @@ public class GroceryList extends Activity {
             e.printStackTrace();
         }
 
-
+        // Set up the ListView to display and select ingredients in the grocery list
         String[] inventory_files_array = inventory_files.toArray(new String[inventory_files.size()]);
 
         ArrayAdapter adapter = new ArrayAdapter<>(this, R.layout.activity_listview, inventory_files_array);
@@ -95,6 +98,8 @@ public class GroceryList extends Activity {
         ListView listView = (ListView) findViewById(R.id.ingredient_list);
         listView.setAdapter(adapter);
 
+        // Set what happens when an ingredient is clicked -> go to EditInventory with the inventory name and
+        // selected ingredient attribute
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -108,8 +113,10 @@ public class GroceryList extends Activity {
             }
         });
 
-
+        // Button to be used when adding ingredient to the grocery list
         Button button = (Button)findViewById(R.id.add_ingredient);
+
+        // When add ingredient buton is clicked, go to AddIngredient
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), AddIngredient.class);
@@ -118,7 +125,10 @@ public class GroceryList extends Activity {
             }
         });
 
+        // Button to be used when emptying grocery list
         Button button2 = (Button)findViewById(R.id.empty_grocery_list);
+
+        // When empty button is clicked, rewrites the contents of the grocery list to be empty
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 FileOutputStream fos;
